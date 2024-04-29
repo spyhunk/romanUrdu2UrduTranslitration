@@ -1,7 +1,7 @@
 # Simple Roman to Urdu Translitration in Javascript
 
-# Simply Import romanUrduConverter();
+// Simply Import romanUrduConverter();
 
 print(romanUrduConverter("Muje Ap se Pyar He"));
 
-# Expected output:   موجے اپ سے پیار ہے
+// Expected output:   موجے اپ سے پیار ہے
