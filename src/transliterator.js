@@ -34,6 +34,7 @@ const COMMON_WORDS = {
     // Common Verbs
     'karna': 'کرنا', 'karo': 'کرو',
     'karta': 'کرتا', 'karti': 'کرتی', 'karte': 'کرتے',
+    'hasil': 'حاصل',
     'kiya': 'کیا', 'ki': 'کی', 'kar': 'کر',
     'karunga': 'کروںگا', 'karungi': 'کروںگی',
     'karenge': 'کریں گے', 'karengi': 'کریں گی',
@@ -230,6 +231,8 @@ const COMMON_WORDS = {
     // Common Nouns
     'ghar': 'گھر', 'kamra': 'کمرہ',
     'darwaza': 'دروازہ', 'khirki': 'کھڑکی',
+    'safar': 'سفر', 'raasta': 'راستہ', 'rasta': 'راستہ',
+    'manzil': 'منزل', 'sarak': 'سڑک', 'road': 'روڈ',
     'kursi': 'کرسی', 'mez': 'میز',
     'bistar': 'بستر', 'almari': 'الماری',
     'pani': 'پانی', 'paani': 'پانی',
@@ -243,6 +246,7 @@ const COMMON_WORDS = {
     'ghee': 'گھی', 'namak': 'نمک', 'mirch': 'مرچ',
     'cheeni': 'چینی',
     'kitab': 'کتاب', 'qalam': 'قلم', 'kagaz': 'کاغذ',
+    'ilm': 'علم', 'ilim': 'علم',
     'school': 'سکول', 'madrasa': 'مدرسہ',
 
     // Colors
@@ -252,6 +256,7 @@ const COMMON_WORDS = {
     // Adjectives
     'acha': 'اچھا', 'achchha': 'اچھا',
     'achi': 'اچھی', 'achay': 'اچھے',
+    'adat': 'عادت', 'aadat': 'عادت',
     'bura': 'برا', 'buri': 'بری', 'buray': 'برے',
     'bara': 'بڑا', 'bari': 'بڑی', 'baray': 'بڑے',
     'chota': 'چھوٹا', 'choti': 'چھوٹی', 'chotay': 'چھوٹے',
@@ -270,6 +275,8 @@ const COMMON_WORDS = {
     'mushkil': 'مشکل', 'aasan': 'آسان', 'asan': 'آسان',
     'zaruri': 'ضروری', 'zaroori': 'ضروری',
     'khaas': 'خاص', 'aam': 'عام',
+    'kamyabi': 'کامیابی', 'kamiyabi': 'کامیابی',
+    'kunji': 'کنجی', 'chabi': 'چابی',
 
     // Adverbs
     'bahut': 'بہت', 'bohat': 'بہت', 'bohot': 'بہت',
@@ -291,9 +298,42 @@ const COMMON_WORDS = {
     'dil': 'دل', 'jaan': 'جان',
     'zindagi': 'زندگی', 'maut': 'موت',
     'umeed': 'امید', 'ummeed': 'امید',
-    'dua': 'دعا', 'namaz': 'نماز', 'roza': 'روزہ',
-    'quran': 'قرآن', 'hadees': 'حدیث',
     'sunnat': 'سنّت', 'jannat': 'جنّت', 'jahannam': 'جہنّم',
+
+    // Islamic & Religious
+    'inshaallah': 'انشاءاللہ', 'inshallah': 'انشاءاللہ', 'in-sha-allah': 'ان شاء اللہ',
+    'mashaallah': 'ماشاءاللہ', 'mashallah': 'ماشاءاللہ',
+    'alhamdulillah': 'الحمدللہ',
+    'subhanallah': 'سبحان اللہ',
+    'astaghfirullah': 'استغفراللہ',
+    'jazakallah': 'جزاک اللہ',
+    'jazakallah-khair': 'جزاک اللہ خیر',
+    'bismillah': 'بسم اللہ',
+    'ameen': 'آمین',
+    'dua': 'دعا',
+    'haj': 'حج', 'hajj': 'حج',
+    'umrah': 'عمرہ',
+    'ramzan': 'رمضان', 'ramadan': 'رمضان',
+    'eid': 'عید',
+    'namaz': 'نماز',
+    'roza': 'روزہ',
+    'zakat': 'زکات',
+    'qurbani': 'قربانی',
+    'masjid': 'مسجد',
+    'quran': 'قرآن',
+    'hadees': 'حدیث',
+    'allah': 'اللہ', 'khuda': 'خدا',
+    'deen': 'دین',
+    'iman': 'ایمان',
+    'makkah': 'مکہ',
+    'madinah': 'مدینہ',
+    'rasool': 'رسول',
+    'nabi': 'نبی',
+    'farz': 'فرض',
+    'wajib': 'واجب',
+    'halal': 'حلال',
+    'haram': 'حرام',
+    'kaba': 'کعبہ', 'kaaba': 'کعبہ',
 
     // Short common words
     'to': 'تو', 'jo': 'جو', 'so': 'سو',
@@ -427,6 +467,18 @@ function isVowel(char) {
     return 'aeiou'.includes(char.toLowerCase());
 }
 
+const PUNCTUATION_MAP = {
+    ',': '،',
+    '?': '؟',
+    ';': '؛',
+    '%': '٪',
+    '"': '”',
+};
+
+function mapPunctuation(str) {
+    return str.split('').map(char => PUNCTUATION_MAP[char] || char).join('');
+}
+
 // ============================================================================
 // CORE TRANSLITERATION
 // ============================================================================
@@ -442,7 +494,14 @@ function transliterateWord(word) {
         prefix = punctuationMatch[1] || '';
         core = punctuationMatch[2] || word;
         suffix = punctuationMatch[3] || '';
+    } else {
+        // If it's just punctuation/symbols (e.g. "?")
+        return mapPunctuation(word);
     }
+
+    // Map punctuation in prefix/suffix
+    prefix = mapPunctuation(prefix);
+    suffix = mapPunctuation(suffix);
 
     const normalized = normalizeSpelling(core);
     const lowerCore = core.toLowerCase();

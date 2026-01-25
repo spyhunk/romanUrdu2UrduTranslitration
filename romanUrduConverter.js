@@ -517,6 +517,14 @@ const COMMON_WORDS = {
     'namak': 'نمک',
     'mirch': 'مرچ',
     'cheeni': 'چینی',
+    'safar': 'سفر',
+    'raasta': 'راستہ',
+    'rasta': 'راستہ',
+    'manzil': 'منزل',
+    'kamyabi': 'کامیابی',
+    'kamiyabi': 'کامیابی',
+    'kunji': 'کنجی',
+    'chabi': 'چابی',
     'kitab': 'کتاب',
     'qalam': 'قلم',
     'kagaz': 'کاغذ',
@@ -528,6 +536,8 @@ const COMMON_WORDS = {
     'achchha': 'اچھا',
     'achi': 'اچھی',
     'achay': 'اچھے',
+    'adat': 'عادت',
+    'aadat': 'عادت',
     'bura': 'برا',
     'buri': 'بری',
     'buray': 'برے',
@@ -610,14 +620,51 @@ const COMMON_WORDS = {
     'maut': 'موت',
     'umeed': 'امید',
     'ummeed': 'امید',
-    'dua': 'دعا',
-    'namaz': 'نماز',
-    'roza': 'روزہ',
-    'quran': 'قرآن',
-    'hadees': 'حدیث',
     'sunnat': 'سنّت',
     'jannat': 'جنّت',
     'jahannam': 'جہنّم',
+
+    // Islamic & Religious
+    'inshaallah': 'انشاءاللہ',
+    'inshallah': 'انشاءاللہ',
+    'in-sha-allah': 'ان شاء اللہ',
+    'mashaallah': 'ماشاءاللہ',
+    'mashallah': 'ماشاءاللہ',
+    'alhamdulillah': 'الحمدللہ',
+    'subhanallah': 'سبحان اللہ',
+    'astaghfirullah': 'استغفراللہ',
+    'jazakallah': 'جزاک اللہ',
+    'jazakallah-khair': 'جزاک اللہ خیر',
+    'bismillah': 'بسم اللہ',
+    'ameen': 'آمین',
+    'dua': 'دعا',
+    'haj': 'حج',
+    'hajj': 'حج',
+    'umrah': 'عمرہ',
+    'ramzan': 'رمضان',
+    'ramadan': 'رمضان',
+    'eid': 'عید',
+    'namaz': 'نماز',
+    'roza': 'روزہ',
+    'zakat': 'زکات',
+    'qurbani': 'قربانی',
+    'masjid': 'مسجد',
+    'quran': 'قرآن',
+    'hadees': 'حدیث',
+    'allah': 'اللہ',
+    'khuda': 'خدا',
+    'deen': 'دین',
+    'iman': 'ایمان',
+    'makkah': 'مکہ',
+    'madinah': 'مدینہ',
+    'rasool': 'رسول',
+    'nabi': 'نبی',
+    'farz': 'فرض',
+    'wajib': 'واجب',
+    'halal': 'حلال',
+    'haram': 'حرام',
+    'kaba': 'کعبہ',
+    'kaaba': 'کعبہ',
 
     // Short common words
     'to': 'تو',
@@ -1053,6 +1100,18 @@ function handleDuplicates(word) {
 // CORE TRANSLITERATION ENGINE
 // ============================================================================
 
+const PUNCTUATION_MAP = {
+    ',': '،',
+    '?': '؟',
+    ';': '؛',
+    '%': '٪',
+    '"': '”',
+};
+
+function mapPunctuation(str) {
+    return str.split('').map(char => PUNCTUATION_MAP[char] || char).join('');
+}
+
 /**
  * Transliterate a single word using longest-match-first algorithm
  * @param {string} word - Input Roman Urdu word
@@ -1074,7 +1133,14 @@ function transliterateWord(word) {
         prefix = punctuationMatch[1] || '';
         core = punctuationMatch[2] || word;
         suffix = punctuationMatch[3] || '';
+    } else {
+        // If it's just punctuation/symbols (e.g. "?")
+        return mapPunctuation(word);
     }
+
+    // Map punctuation in prefix/suffix
+    prefix = mapPunctuation(prefix);
+    suffix = mapPunctuation(suffix);
 
     // Normalize the word for dictionary lookup
     const normalized = normalizeSpelling(core);

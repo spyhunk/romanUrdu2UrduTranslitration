@@ -21,7 +21,7 @@ const IS_DEV = window.location.hostname === 'localhost' || window.location.hostn
 
 // Update badge to show where processing is happening
 if (IS_DEV) {
-    runtimeBadge.innerHTML = 'LOCAL <span class="dev-badge">DEV MODE</span>';
+    runtimeBadge.innerHTML = 'LOCAL';
 } else {
     runtimeBadge.textContent = 'EDGE';
 }
@@ -156,6 +156,11 @@ exampleCards.forEach(card => {
     card.addEventListener('click', () => {
         inputArea.value = card.getAttribute('data-text');
         handleTransliteration();
+        // scroll to output area + top 100px
+        window.scrollTo({
+            top: outputArea.offsetTop - 80,
+            behavior: 'smooth'
+        });
     });
 });
 

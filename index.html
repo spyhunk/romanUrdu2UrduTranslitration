@@ -7,6 +7,10 @@
     <title>Roman Urdu → Urdu | Production-Grade Transliterator</title>
     <meta name="description"
         content="Convert Roman Urdu text to Urdu script in real-time. Fast, accurate, and free API available.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f0f;
@@ -23,7 +27,7 @@
             --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 14px;
-            --font-urdu: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+            --font-urdu: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', system-ui, sans-serif;
         }
 
         * {
@@ -206,7 +210,7 @@
             justify-content: center;
             gap: 40px;
             margin-top: 32px;
-            padding: 20px;
+            padding: 10px 20px;
             background: var(--bg-secondary);
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
@@ -318,7 +322,7 @@
 
         .example-urdu {
             font-family: var(--font-urdu);
-            font-size: 1.4rem;
+            font-size: 1rem;
             direction: rtl;
             text-align: right;
             color: var(--text-primary);
@@ -364,7 +368,7 @@
             opacity: 0.5;
         }
 
-        .dev-badge {
+        .runtime-badge {
             display: inline-block;
             padding: 2px 6px;
             background: #ff9800;
@@ -375,14 +379,47 @@
             margin-left: 8px;
             vertical-align: middle;
         }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>Roman Urdu → Urdu</h1>
+            <h1>Roman Urdu → <span style="font-family: var(--font-urdu); font-size: 2.5rem;">اردو</span></h1>
             <p class="subtitle">Fast, real-time transliteration with 660+ word dictionary</p>
+            <p class="subtitle">Developed by <a href="https://hamzaafzal.com" target="_blank"
+                    rel="noopener noreferrer">Hamza Afzal</a>
+            </p>
+            <p class="subtitle">Connect with me on <a href="https://linkedin.com/in/mrhamzaafzal" target="_blank"
+                    rel="noopener noreferrer">LinkedIn</a>
+            </p>
+            <p class="subtitle"
+                style="margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span class="runtime-badge" id="runtime-badge">Cloudflare Pages</span>
+                <a href="https://github.com/spyhunk/romanUrdu2UrduTranslitration" target="_blank"
+                    rel="noopener noreferrer" style="text-decoration: none;">
+                    <span
+                        style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #24292e; color: #fff; border-radius: 6px; font-size: 0.8rem; font-weight: 500;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                        Open Source on GitHub
+                    </span>
+                </a>
+            </p>
         </header>
 
         <div class="editor-grid">
@@ -397,7 +434,7 @@
             <div class="editor-panel">
                 <div class="panel-header">
                     <span class="panel-title">Urdu Script</span>
-                    <span class="panel-badge" id="runtime-badge">RTL</span>
+                    <span class="panel-badge">RTL</span>
                 </div>
                 <div id="output-area"></div>
             </div>
@@ -434,6 +471,55 @@
             </div>
         </div>
 
+        <p style="text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--text-secondary);">
+            Found any issues? Incorrect transliteration? Missing words? <a
+                href="https://github.com/spyhunk/romanUrdu2UrduTranslitration/issues" target="_blank"
+                rel="noopener noreferrer">Report them here</a> Or send me dm on <a
+                href="https://linkedin.com/in/mrhamzaafzal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </p>
+
+        <div class="examples-section">
+            <h2 class="section-title">Common Phrases</h2>
+            <div class="examples-grid">
+                <div class="example-card" data-text="Assalam o alaikum, kaise ho aap?">
+                    <div class="example-roman">Assalam o alaikum, kaise ho aap?</div>
+                    <div class="example-urdu">السلام و علیکم، کیسے ہو آپ؟</div>
+                </div>
+                <div class="example-card" data-text="Mujhe aap se bahut pyaar hai">
+                    <div class="example-roman">Mujhe aap se bahut pyaar hai</div>
+                    <div class="example-urdu">مجھے آپ سے بہت پیار ہے</div>
+                </div>
+                <div class="example-card" data-text="Pakistan hamara watan hai">
+                    <div class="example-roman">Pakistan hamara watan hai</div>
+                    <div class="example-urdu">پاکستان ہمارا وطن ہے</div>
+                </div>
+                <div class="example-card" data-text="Khuda hafiz, phir milenge">
+                    <div class="example-roman">Khuda hafiz, phir milenge</div>
+                    <div class="example-urdu">خدا حافظ، پھر ملیں گے</div>
+                </div>
+                <div class="example-card" data-text="InshaAllah sab theek ho jaye ga">
+                    <div class="example-roman">InshaAllah sab theek ho jaye ga</div>
+                    <div class="example-urdu">انشاءاللہ سب ٹھیک ہو جائے گا</div>
+                </div>
+                <div class="example-card" data-text="Mehnat kamyabi ki kunji hai">
+                    <div class="example-roman">Mehnat kamyabi ki kunji hai</div>
+                    <div class="example-urdu">محنت کامیابی کی کنجی ہے</div>
+                </div>
+                <div class="example-card" data-text="Zindagi ek khoobsurat safar hai">
+                    <div class="example-roman">Zindagi ek khoobsurat safar hai</div>
+                    <div class="example-urdu">زندگی ایک خوبصورت سفر ہے</div>
+                </div>
+                <div class="example-card" data-text="Ilm hasil karna har mard aur aurat par farz hai">
+                    <div class="example-roman">Ilm hasil karna har mard aur aurat par farz hai</div>
+                    <div class="example-urdu">علم حاصل کرنا ہر مرد اور عورت پر فرض ہے</div>
+                </div>
+                <div class="example-card" data-text="Sach bolna sab se achi adat hai">
+                    <div class="example-roman">Sach bolna sab se achi adat hai</div>
+                    <div class="example-urdu">سچ بولنا سب سے اچھی عادت ہے</div>
+                </div>
+
+            </div>
+        </div>
         <div class="api-section">
             <h2>📡 API Usage</h2>
             <p
@@ -465,30 +551,11 @@ fetch('/api', {
 }</code></pre>
         </div>
 
-        <div class="examples-section">
-            <h2 class="section-title">Common Phrases</h2>
-            <div class="examples-grid">
-                <div class="example-card" data-text="Assalam o alaikum, kaise ho aap?">
-                    <div class="example-roman">Assalam o alaikum, kaise ho aap?</div>
-                    <div class="example-urdu">السلام و علیکم، کیسے ہو آپ؟</div>
-                </div>
-                <div class="example-card" data-text="Mujhe aap se bahut pyaar hai">
-                    <div class="example-roman">Mujhe aap se bahut pyaar hai</div>
-                    <div class="example-urdu">مجھے آپ سے بہت پیار ہے</div>
-                </div>
-                <div class="example-card" data-text="Pakistan hamara watan hai">
-                    <div class="example-roman">Pakistan hamara watan hai</div>
-                    <div class="example-urdu">پاکستان ہمارا وطن ہے</div>
-                </div>
-                <div class="example-card" data-text="Khuda hafiz, phir milenge">
-                    <div class="example-roman">Khuda hafiz, phir milenge</div>
-                    <div class="example-urdu">خدا حافظ، پھر ملیں گے</div>
-                </div>
-            </div>
-        </div>
+
 
         <footer>
-            <p>Powered by Vite + Cloudflare Pages • No external dependencies</p>
+            <p>Developed by <a href="https://hamzaafzal.com" target="_blank" rel="noopener noreferrer">Hamza Afzal</a> •
+                Powered by Cloudflare Pages • No external dependencies</p>
         </footer>
     </div>
 
