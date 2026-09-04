@@ -1,6 +1,6 @@
-# Roman Urdu → Urdu Transliterator
+# Roman Urdu ⇄ Urdu Transliterator
 
-A production-grade, real-time transliterator for converting Roman Urdu to Urdu script. Built with **Vite** and designed for **Cloudflare Pages**.
+A production-grade, real-time **two-way** transliterator: Roman Urdu → Urdu script, and Urdu script → Roman Urdu. Built with **Vite** and designed for **Cloudflare Pages**. The Urdu → Roman direction is powered by [urdu-text-utils](https://github.com/Zaid-maker/urdu-text-utils) (MIT) — a 2,200+ word dictionary plus a rule engine.
 
 ## ✨ Features
 
@@ -9,6 +9,7 @@ A production-grade, real-time transliterator for converting Roman Urdu to Urdu s
 - ✅ **Phonetic Normalization**: Handles "mujhe", "mujhey", and "mujhy" seamlessly.
 - ✅ **Cloudflare Pages API**: Distributed, high-performance API endpoint.
 - ✅ **Modern UI**: Sleek dark-mode interface with real-time feedback.
+- ✅ **Two-Way Translation**: Type Roman Urdu *or* Urdu script — direction is detected automatically.
 
 ---
 
@@ -24,7 +25,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) to see it in action.
 
 ### 2. Testing
-Run the command-line tests to verify transliteration logic:
+Run the command-line tests to verify both transliteration directions:
 ```bash
 npm run test
 ```

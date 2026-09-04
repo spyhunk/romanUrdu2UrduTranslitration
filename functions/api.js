@@ -1,4 +1,4 @@
-import { romanUrduConverter, isInDictionary } from '../src/transliterator.js';
+import { romanUrduConverter, urduToRomanConverter, isUrduText, isInDictionary } from '../src/transliterator.js';
 import { isRateLimited } from '../src/rateLimiter.js';
 
 export async function onRequestPost(context) {
@@ -22,12 +22,14 @@ export async function onRequestPost(context) {
     try {
         const body = await request.json();
         const text = body.text || body.input || '';
+        const direction = body.direction || 'auto'; // 'auto' | 'urdu-to-roman' | 'roman-to-urdu'
 
         if (!text || typeof text !== 'string') {
             return new Response(JSON.stringify({ success: false, error: 'Missing "text" field' }), { status: 400 });
         }
 
-        const output = romanUrduConverter(text);
+        const urduInput = direction === 'auto' ? isUrduText(text) : direction === 'urdu-to-roman';
+        const output = urduInput ? urduToRomanConverter(text) : romanUrduConverter(text);
 
         // Stats
         const words = text.trim().split(/\s+/).filter(w => w.length > 0);
@@ -41,6 +43,7 @@ export async function onRequestPost(context) {
             success: true,
             input: text,
             output: output,
+            direction: urduInput ? 'urdu-to-roman' : 'roman-to-urdu',
             wordCount: words.length,
             characterCount: text.length,
             dictionaryHits: dictionaryHits,

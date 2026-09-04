@@ -425,16 +425,16 @@
         <div class="editor-grid">
             <div class="editor-panel">
                 <div class="panel-header">
-                    <span class="panel-title">Roman Urdu</span>
-                    <span class="panel-badge">LTR</span>
+                    <span class="panel-title" id="input-title">Roman Urdu</span>
+                    <span class="panel-badge" id="input-badge">LTR</span>
                 </div>
                 <textarea id="input-area" placeholder="Start typing Roman Urdu here..." spellcheck="false"
                     autofocus></textarea>
             </div>
             <div class="editor-panel">
                 <div class="panel-header">
-                    <span class="panel-title">Urdu Script</span>
-                    <span class="panel-badge">RTL</span>
+                    <span class="panel-title" id="output-title">Urdu Script</span>
+                    <span class="panel-badge" id="output-badge">RTL</span>
                 </div>
                 <div id="output-area"></div>
             </div>
@@ -555,7 +555,8 @@ fetch('/api', {
 
         <footer>
             <p>Developed by <a href="https://hamzaafzal.com" target="_blank" rel="noopener noreferrer">Hamza Afzal</a> •
-                Powered by Cloudflare Pages • No external dependencies</p>
+                Powered by Cloudflare Pages • Urdu→Roman by
+                <a href="https://github.com/Zaid-maker/urdu-text-utils" target="_blank" rel="noopener noreferrer">urdu-text-utils</a></p>
         </footer>
     </div>
 
