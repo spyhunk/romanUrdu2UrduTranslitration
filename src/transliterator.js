@@ -3,6 +3,11 @@
  * Cloudflare Workers Edition
  */
 
+// The Urdu -> Roman direction comes from urdu-text-utils (MIT,
+// https://github.com/Zaid-maker/urdu-text-utils): a 2,200+ word vowel-carrying
+// dictionary plus a rule engine for unknown words.
+import { romanize, isUrdu } from 'urdu-text-utils';
+
 // ============================================================================
 // COMMON WORDS DICTIONARY
 // ============================================================================
@@ -599,6 +604,32 @@ function getDictionaryStats() {
 }
 
 // ============================================================================
+// URDU -> ROMAN DIRECTION (urdu-text-utils)
+// ============================================================================
+
+function urduToRomanConverter(sentence) {
+    if (!sentence || typeof sentence !== 'string') return '';
+    return romanize(sentence);
+}
+
+/**
+ * Detect the direction of a text: true when it contains Urdu script.
+ * Mixed input (e.g. "kya haal ہے") counts as Urdu so the Urdu half gets
+ * romanized rather than the Roman half being misread as dictionary keys.
+ */
+function isUrduText(text) {
+    return isUrdu(text);
+}
+
+/**
+ * Two-way entry point. Roman Urdu in -> Urdu out; Urdu in -> Roman out.
+ */
+function transliterate(sentence) {
+    if (!sentence || typeof sentence !== 'string') return '';
+    return isUrduText(sentence) ? urduToRomanConverter(sentence) : romanUrduConverter(sentence);
+}
+
+// ============================================================================
 // EXPORTS
 // ============================================================================
 
@@ -607,5 +638,8 @@ export {
     transliterateWord,
     isInDictionary,
     getDictionaryStats,
+    urduToRomanConverter,
+    isUrduText,
+    transliterate,
     COMMON_WORDS
 };

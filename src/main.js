@@ -1,4 +1,4 @@
-import { romanUrduConverter, isInDictionary } from './transliterator.js';
+import { transliterate, urduToRomanConverter, isUrduText, isInDictionary } from './transliterator.js';
 
 // ============================================
 // DOM ELEMENTS
@@ -55,13 +55,15 @@ async function handleTransliteration() {
 
     // LOCAL DEV MODE: Use the library directly to avoid local worker binary crashes
     if (IS_DEV) {
-        const output = romanUrduConverter(input);
+        const urduInput = isUrduText(input);
+        const output = transliterate(input);
         const words = input.trim().split(/\s+/).filter(w => w.length > 0);
         let dictionaryHits = 0;
         words.forEach(word => {
             const cleanWord = word.replace(/[^a-zA-Z]/g, '').toLowerCase();
             if (cleanWord && isInDictionary(cleanWord)) dictionaryHits++;
         });
+        updateDirectionLabels(urduInput);
 
         updateUI({
             output,
@@ -97,7 +99,7 @@ async function handleTransliteration() {
         } catch (error) {
             console.error('API Error:', error);
             // Fallback to local processing if API fails
-            const output = romanUrduConverter(input);
+            const output = transliterate(input);
             outputArea.textContent = output;
         } finally {
             outputArea.classList.remove('loading');
@@ -163,6 +165,39 @@ exampleCards.forEach(card => {
         });
     });
 });
+
+// ============================================
+// DIRECTION LABELS
+// ============================================
+
+function updateDirectionLabels(urduInput) {
+    const inputTitle = document.getElementById('input-title');
+    const outputTitle = document.getElementById('output-title');
+    const inputBadge = document.getElementById('input-badge');
+    const outputBadge = document.getElementById('output-badge');
+    const copyBtn = document.getElementById('copy-btn');
+    if (urduInput) {
+        inputTitle.textContent = 'Urdu Script';
+        outputTitle.textContent = 'Roman Urdu';
+        inputBadge.textContent = 'RTL';
+        outputBadge.textContent = 'LTR';
+        copyBtn.textContent = 'Copy Roman';
+        inputArea.style.fontFamily = 'var(--font-urdu)';
+        inputArea.style.direction = 'rtl';
+        inputArea.style.textAlign = 'right';
+        inputArea.placeholder = 'یہاں اردو لکھیں...';
+    } else {
+        inputTitle.textContent = 'Roman Urdu';
+        outputTitle.textContent = 'Urdu Script';
+        inputBadge.textContent = 'LTR';
+        outputBadge.textContent = 'RTL';
+        copyBtn.textContent = 'Copy Urdu';
+        inputArea.style.fontFamily = '';
+        inputArea.style.direction = '';
+        inputArea.style.textAlign = '';
+        inputArea.placeholder = 'Start typing Roman Urdu here...';
+    }
+}
 
 // ============================================
 // INITIALIZATION

@@ -20,5 +20,8 @@
     "license": "MIT",
     "devDependencies": {
         "vite": "^6.0.0"
+    },
+    "dependencies": {
+        "urdu-text-utils": "^0.2.2"
     }
 }
